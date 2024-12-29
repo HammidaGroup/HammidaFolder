@@ -1,4 +1,4 @@
-const token = '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'; // GitHub का PAT
+const token = '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'; // GitHub का PAT
 const owner = 'HammidaGroup'; // रिपोजिटरी का मालिक
 const repo = 'HammidaFolder'; // रिपोजिटरी का नाम
 
