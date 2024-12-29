@@ -56,5 +56,5 @@ getRepoFiles().then((files) => {
   });
 });
 
-const number = Math.floor(Math.random())
+const number = Math.floor(Math.random()*10)
 box.innerHTML = number;
