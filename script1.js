@@ -42,7 +42,7 @@ function appendContent(fil) {
     img.alt = fil.name;
     box.appendChild(img);
   } else {
-    console.log(`Skipping non-image file: ${fil.name}`);
+    alert(`Skipping non-image file: ${fil.name}`);
   }
 }
 
@@ -55,3 +55,6 @@ getRepoFiles().then((files) => {
     appendContent(fil);
   });
 });
+
+const number = Math.floor(Math.random())
+box.innerHTML = number;
