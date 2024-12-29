@@ -13,14 +13,12 @@ async function getRepoFiles(path = '') {
     }
 
     const data = await response.json();
-    console.log(data[0])
     let files = [];
 
     for (const item of data) {
       if (item.type === 'file') {
-        files.push(item.path); // केवल फाइल का नाम या पथ जोड़ें
+        files.push(item);
       } else if (item.type === 'dir') {
-        // डायरेक्टरी के अंदर की फाइलें प्राप्त करें
         const subDirFiles = await getRepoFiles(item.path);
         files = files.concat(subDirFiles);
       }
@@ -33,20 +31,27 @@ async function getRepoFiles(path = '') {
   }
 }
 
-const box = document.getElementById("box") 
+const box = document.getElementById("box");
+
 function appendContent(fil) {
-  // Tab to edit
-  const img = document.createElement("img") 
-  img.src = fil
-  box.appendChild(img)
+  // Check if the file is an image based on its extension
+  const imgExtensions = ['.png', '.jpg', '.jpeg', '.gif', '.svg'];
+  if (imgExtensions.some(ext => fil.name.toLowerCase().endsWith(ext))) {
+    const img = document.createElement("img");
+    img.src = fil.download_url; // Use download_url for images
+    img.alt = fil.name;
+    box.appendChild(img);
+  } else {
+    console.log(`Skipping non-image file: ${fil.name}`);
+  }
 }
+
 // Example Usage
 getRepoFiles().then((files) => {
   console.log('Files in repository:', files);
   console.log('Total files:', files.length);
-  files.map((fil)=>{
-    console.log(fil)
-    appendContent(fil)
-  })
+  files.forEach((fil) => {
+    console.log(fil.name);
+    appendContent(fil);
+  });
 });
-
